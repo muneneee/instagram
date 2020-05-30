@@ -2,5 +2,16 @@
 
 {% block content %}
 {{block.super}}
-    <p>ALSO</p>
+    
+    {% for photo in photos %}
+        {% if photo.image %}
+        <div class="col-md-4">
+            <img class="img-fluid" src="{{photo.image.cdn_url}}" alt="">
+        </div>
+        {% endif %}
+    {% endfor %}
+
+
+
+
 {% endblock %}

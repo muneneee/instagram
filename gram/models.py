@@ -21,7 +21,7 @@ class Profile:
 
 
 class Image(models.Model):
-    Image = ImageField(blank = False, manual_crop="")
+    image = ImageField(blank = False, manual_crop="")
     name = models.CharField(max_length = 20)
     caption= models.TextField()
     #profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
