@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<head>
+{% extends 'insta/base.html' %}
 
-</head>
-<body>
-    <h1>WELOME TO MY CHANNEL</h1>
-</body>
+{% block content %}
+{{block.super}}
+    <p>ALSO</p>
+{% endblock %}
