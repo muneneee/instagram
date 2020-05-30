@@ -77,6 +77,12 @@ UPLOADCARE = {
     'secret': '633fcd4f53d62acdbd4c',
 }
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'muneneeekev@gmail.com'
+EMAIL_HOST_PASSWORD = '12330122015'
+
 
 
 WSGI_APPLICATION = 'instagram.wsgi.application'

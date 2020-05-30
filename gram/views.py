@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django .contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Image
+from django.contrib.auth.models import User
+from .email import send_welcome_email
 from .forms import RegisterForm
 
 
@@ -20,8 +22,11 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            send_welcome_email(username,email)
+
             messages.success(request, f'Account {username} created')
-            return redirect('login_url')
+            return redirect('login')
     else:
         form = RegisterForm()
 
