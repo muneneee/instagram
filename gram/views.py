@@ -6,7 +6,7 @@ from .models import Image
 from .forms import RegisterForm
 
 
-
+@login_required
 def index(request):
 
     photos = Image.objects.all()
@@ -26,3 +26,7 @@ def register(request):
         form = RegisterForm()
 
     return render(request, 'registration/register.html',{'form':form})
+
+
+def profile(request):
+    return render(request, 'insta/profile.html')
