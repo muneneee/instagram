@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
 from django .contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Image,Profile
 from django.contrib.auth.models import User
 from .email import send_welcome_email
-from django.views.generic import ListView,DetailView
+from pyuploadcare.dj.forms import ImageField
+from django.views.generic import ListView,DetailView,CreateView
 from .forms import RegisterForm,ProfileForm,UpdateForm
 
 
@@ -69,5 +69,19 @@ class PostView(ListView):
 class DetailView(DetailView):
     model = Image
     template_name = 'insta/detail.html'
+
+
+class CreateView(CreateView):
+    image = ImageField(label='post')
+
+    model = Image
+    success_url = '/'
+    template_name = 'insta/post_form.html'
+    fields = [ 'name', 'caption','image']
+
+
+    def form_valid(self, form):
+        form.instance.account = self.request.user
+        return super().form_valid(form)
 
 
