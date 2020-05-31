@@ -3,10 +3,10 @@
 {% block content %}
 {{block.super}}
     
-    {% for photo in photos %}
-        {% if photo.image %}
+    {% for post in posts %}
+        {% if post.image %}
         <div class="col-md-4">
-            <img class="img-fluid" src="{{photo.image.cdn_url}}" alt="">
+            <img class="img-fluid" src="{{post.image.cdn_url}}" alt="">
         </div>
         {% endif %}
     {% endfor %}

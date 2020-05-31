@@ -5,16 +5,16 @@ from django.contrib import messages
 from .models import Image,Profile
 from django.contrib.auth.models import User
 from .email import send_welcome_email
-from django.db import transaction
-from .forms import RegisterForm,ProfileForm
+from django.views.generic import ListView
+from .forms import RegisterForm,ProfileForm,UpdateForm
 
 
 @login_required
 def index(request):
 
-    photos = Image.objects.all()
+    posts = Image.objects.all()
 
-    return render(request, 'insta/index.html', {'photos':photos})
+    return render(request, 'insta/index.html', {'posts':posts})
 
 
 
@@ -31,12 +31,38 @@ def register(request):
             return redirect('login')
     else:
         form = RegisterForm()
-        profile_form = ProfileForm()
+        
     
     return render(request, 'registration/register.html',{'form':form})
 
-
+@login_required
 def profile(request):
-    return render(request, 'insta/profile.html')
+    if request.method == 'POST':
+        user_form = UpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES,instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            username = user_form.cleaned_data.get('username')
+            messages.success(request, f'Account {username} has been updated')
+            return redirect('profile')
+
+    else:
+        user_form = UpdateForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+
+    context = {'user_form':user_form, 'profile_form':profile_form}
+
+
+    return render(request, 'insta/profile.html', context)
+
+
+
+class PostView(ListView):
+    model = Image
+    template_name = 'insta/index.html'
+    context_object_name = 'posts'
+    ordering = ['-posted']
 
 

@@ -26,7 +26,7 @@ class Image(models.Model):
     name = models.CharField(max_length = 20)
     caption= models.TextField()
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    posted = timezone.now()
+    posted = models.DateTimeField(default=timezone.now)
     account = models.ForeignKey(User, on_delete=models.CASCADE)
 
 

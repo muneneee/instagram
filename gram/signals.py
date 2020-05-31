@@ -9,9 +9,9 @@ from .models import Profile
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-    else:
-        Profile.objects.create(user=instance)
-        post_save.connect(create_user_profile, sender=User)
+    #else:
+      #  Profile.objects.create(user=instance)
+     #   post_save.connect(create_user_profile, sender=User)
 
     
 
