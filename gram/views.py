@@ -5,8 +5,8 @@ from .models import Image,Profile
 from django.contrib.auth.models import User
 from .email import send_welcome_email
 from pyuploadcare.dj.forms import ImageField
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView,DetailView,CreateView,UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .forms import RegisterForm,ProfileForm,UpdateForm
 
 
@@ -86,7 +86,7 @@ class CreateView(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
 
-class UpdatePostView(LoginRequiredMixin,UpdateView):
+class UpdatePostView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     image = ImageField(label='post')
 
     model = Image
@@ -99,4 +99,23 @@ class UpdatePostView(LoginRequiredMixin,UpdateView):
         form.instance.account = self.request.user
         return super().form_valid(form)
 
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.account:
+            return True
+        return False
+
+
+
+class DeletePostView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Image
+    
+    success_url = '/'
+    template_name = 'insta/post_delete.html'
+
+    def test_func(self):
+        post =self.get_object()
+        if self.request.user == post.account:
+            return True
+        return False
 
