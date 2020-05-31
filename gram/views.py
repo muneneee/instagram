@@ -5,7 +5,8 @@ from .models import Image,Profile
 from django.contrib.auth.models import User
 from .email import send_welcome_email
 from pyuploadcare.dj.forms import ImageField
-from django.views.generic import ListView,DetailView,CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView,DetailView,CreateView,UpdateView
 from .forms import RegisterForm,ProfileForm,UpdateForm
 
 
@@ -71,7 +72,21 @@ class DetailView(DetailView):
     template_name = 'insta/detail.html'
 
 
-class CreateView(CreateView):
+class CreateView(LoginRequiredMixin,CreateView):
+    image = ImageField(label='post')
+
+    model = Image
+    success_url = '/'
+    template_name = 'insta/post_form.html'
+    fields = [ 'name', 'caption','image']
+
+
+    def form_valid(self, form):
+        form.instance.account = self.request.user
+        return super().form_valid(form)
+
+
+class UpdatePostView(LoginRequiredMixin,UpdateView):
     image = ImageField(label='post')
 
     model = Image
