@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from .email import send_welcome_email
 from pyuploadcare.dj.forms import ImageField
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,View
 from .forms import RegisterForm,ProfileForm,UpdateForm,CommentForm
 
 
@@ -159,3 +159,9 @@ class DeletePostView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
             return True
         return False
 
+
+class ProfileFollowToggle(LoginRequiredMixin,View):
+    template_name = 'insta/profile.html'
+
+    def post(self, request, *args, **kwargs):
+        return redirect ('index')

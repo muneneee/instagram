@@ -9,8 +9,8 @@ class Profile(models.Model):
     profile_photo = ImageField(blank = True, manual_crop="")
     bio = models.TextField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    followers = models.ManyToManyField(User, related_name='followers', blank =True)
-    following = models.ManyToManyField(User, related_name='following', blank = True)
+    followers = models.ManyToManyField(User, related_name='is_following', blank =True)
+    #following = models.ManyToManyField(User, related_name='following', blank = True)
 
 
 

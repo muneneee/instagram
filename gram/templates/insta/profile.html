@@ -6,6 +6,7 @@
 {{block.super}}
     <div class="container">
         <h1>{{user.username}}</h1>
+        <p>{% include 'insta/follow.html' with username=user.username %}</p>
         <p>{{user.profile.bio}}</p>
         <div class="row">
             <div class="col-md-2 col-xs-2">

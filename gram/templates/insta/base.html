@@ -15,6 +15,7 @@
     </head>
     <body>
         {% include "navbar.html" %}
+        {% include 'sidenav.html' %}
         {% if messages %}
             {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">

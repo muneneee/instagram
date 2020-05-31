@@ -1,0 +1,16 @@
+{% extends "insta/base.html" %} 
+
+{% block content %}
+{{block.super}}
+
+    <div class="container">
+        <form method="POST" action="{% url 'follow' %}">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{% if username %} {{username}} {% else %} munene {% endif %}">
+            <button class="btn btn-info">Follow</button>
+            
+        </form>
+    </div>
+
+
+{% endblock %}
