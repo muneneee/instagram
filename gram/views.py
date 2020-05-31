@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Image,Profile
 from django.contrib.auth.models import User
 from .email import send_welcome_email
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 from .forms import RegisterForm,ProfileForm,UpdateForm
 
 
@@ -64,5 +64,10 @@ class PostView(ListView):
     template_name = 'insta/index.html'
     context_object_name = 'posts'
     ordering = ['-posted']
+
+
+class DetailView(DetailView):
+    model = Image
+    template_name = 'insta/detail.html'
 
 

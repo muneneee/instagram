@@ -1,0 +1,15 @@
+{% extends 'insta/base.html' %}
+
+{% block content %}
+{{block.super}}
+    
+    
+        <div class="col-md-4">
+            <img class="img-fluid" src="{{object.image.cdn_url}}" alt="">
+        </div>
+        
+
+
+
+
+{% endblock %}
