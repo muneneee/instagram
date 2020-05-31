@@ -1,0 +1,18 @@
+{% extends "insta/base.html" %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+{{block.super}}
+
+    <div class="container">
+        <form method="POST">
+
+            {% csrf_token %}
+            {{ form|crispy }}
+            
+            <button class="btn btn-success">Post</button>
+        </form>
+    </div>
+
+
+{% endblock %}

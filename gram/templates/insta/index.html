@@ -9,6 +9,16 @@
             <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" alt="" style="cursor: pointer;"></a>
         </div>
         {% endif %}
+        <form action="{% url 'like-post' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="post_id" value="{{post.id}}">
+            {% if user not in post.liked.all%}
+                <button class="ul btn btn-success" type="submit">Like</button>
+            {% else %}
+                <button class="ul btn btn-danger" type="submit">Unlike</button>
+            {% endif %}
+        </form>
+        <strong>{{post.liked.all.count}} likes</strong>
     {% endfor %}
 
 

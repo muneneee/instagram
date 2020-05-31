@@ -1,4 +1,6 @@
 {% extends 'insta/base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
 {{block.super}}
@@ -8,7 +10,27 @@
             <img class="img-fluid" src="{{object.image.cdn_url}}" alt="">
         </div>
         
+        <br><br>
+        <hr>
+        
+        <div class="main-comment-section">
+            {{ image.comment_set.all.count}} comment{{comments|pluralize}}
 
+            
+            {% for comment in image.comment_set.all%}
+
+            <blockquote class="blockquote">
+                <p class="mb-0">{{ comment.content }}</p>
+                <footer class="blockquote-footer">by <cite title="Source Title"> {{ comment.user }}</cite></footer>
+            </blockquote>
+            {% endfor %}
+            
+            <div class="container">
+                
+                    
+                    <button class="btn btn-outline-success"><a href="{% url 'comment' image.id %}">comment</a></button>
+            </div>
+        </div>
 
 
 

@@ -1,13 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django .contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Image,Profile
+from .models import Image,Profile,Comment,Like
 from django.contrib.auth.models import User
 from .email import send_welcome_email
 from pyuploadcare.dj.forms import ImageField
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
-from .forms import RegisterForm,ProfileForm,UpdateForm
+from .forms import RegisterForm,ProfileForm,UpdateForm,CommentForm
+
 
 
 @login_required
@@ -58,6 +59,31 @@ def profile(request):
 
     return render(request, 'insta/profile.html', context)
 
+@login_required
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post_obj = Image.objects.get(id = post_id)
+
+        if user in post_obj.liked.all():
+            post_obj.liked.remove(user)
+        else:
+            post_obj.liked.add(user)
+        
+        like, created = Like.objects.get_or_create(user=user, post_id=post_id)
+
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'like'
+
+        like.save()
+    
+
+    return redirect('index')
+
 
 
 class PostView(ListView):
@@ -70,6 +96,20 @@ class PostView(ListView):
 class DetailView(DetailView):
     model = Image
     template_name = 'insta/detail.html'
+    
+    
+
+class CommentCreate(LoginRequiredMixin,CreateView):
+    model= Comment
+    template_name = 'insta/comment_form.html'
+    success_url = '/'
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post =self.request.POST.get('post_id')
+        #form.instance.post = get_object_or_404(Image, pk=image_id)
+        return super().form_valid(form)
 
 
 class CreateView(LoginRequiredMixin,CreateView):
