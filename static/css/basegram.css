@@ -1,12 +1,14 @@
-body {
-    margin-left: 160px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
-  }
-
   .article-img {
     height: 65px;
     width: 65px;
     margin-right: 16px;
+  }
+  
+
+  
+  body {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
   }
   

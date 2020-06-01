@@ -8,7 +8,8 @@ from pyuploadcare.dj.forms import ImageField
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,View
 from .forms import RegisterForm,ProfileForm,UpdateForm,CommentForm
-
+from django.contrib.sessions.models import Session
+from django.contrib.auth import get_user_model
 
 
 @login_required
@@ -19,11 +20,14 @@ def index(request):
     return render(request, 'insta/index.html', {'posts':posts},{'users':users})
 
 
-def navbar(request):
+#def navbar(request):
 
-    users = User.objects.all()
+ #   users =get_user_model()
+  #  users.objects.all()
+   # print(users)
+    
 
-    return render(request, 'sidenav.html',{'users':users})
+    #return render(request, 'sidenav.html',{'users':users})
 
 
 def register(request):
@@ -92,16 +96,25 @@ def like_post(request):
 
 
 
-class PostView(ListView):
+class PostView(LoginRequiredMixin,ListView):
     model = Image
     template_name = 'insta/index.html'
     context_object_name = 'posts'
     ordering = ['-posted']
 
+    
+
 
 class DetailView(DetailView):
     model = Image
     template_name = 'insta/detail.html'
+
+    #def get_context_data(self, *args, **kwargs):
+     #   context = super(DetailView,self).get_context_data(*args, **kwargs)
+      ##  user = context['user']
+        #if user.profile in self.request.user.is_following.all():
+         #   is_following = True
+        #context['is_following'] = is_following
     
     
 
@@ -170,4 +183,18 @@ class ProfileFollowToggle(LoginRequiredMixin,View):
     template_name = 'insta/profile.html'
 
     def post(self, request, *args, **kwargs):
+
+        user_to_toggle = request.POST.get("username")
+        profile_=Profile.objects.get(user__user__exact=user_to_toggle)
+        user = request.user
+        #try:
+         #   profile = Profile.objects.get(user=request.user)
+          #  # if it's a OneToOne field, you can do:
+            # profile = request.user.myprofile
+        #except MyProfile.DoesNotExist:
+         #   profile = None
+        if user in profile_.followers.all():
+            profile_.followers.remove(user)
+        else:
+            profile_.followers.add(user)
         return redirect ('index')

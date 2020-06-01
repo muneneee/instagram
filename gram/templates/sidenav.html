@@ -29,7 +29,7 @@ body {
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #1c26b3;
 }
 
 .main {
@@ -48,8 +48,13 @@ body {
 </style>
 </head>
 <body>
+   
+        <div class="sidenav ">
+            <a class="nav-link" href="{% url 'profile' %}">{{user.username}}</a>
+            <a class="nav-link" href="{%url 'logout'%}">Logout</a>
+            <a class="nav-link" href="{%url 'create'%}">+ Add Post</a>
 
-<div class="sidenav ">
-  <a href="#about">{{user.username}}</a>
-  
-</div>
+            
+        </div>
+        
+</body>

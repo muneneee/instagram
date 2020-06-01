@@ -5,16 +5,24 @@
 {% block content %}
 {{block.super}}
     
-    
+
         <div class="col-md-4">
+            <hr>
+            <hr>
             <img class="img-fluid" src="{{object.image.cdn_url}}" alt="">
+            {% if object.account == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' object.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete' object.id %}">Delete</a>
+                </div>
+            {% endif %}
         </div>
         
         <br><br>
         <hr>
         
         <div class="main-comment-section">
-            {{ image.comment_set.all.count}} comment{{comments|pluralize}}
+            {{ image.comment_set.all.count}} comments{{comments|pluralize}}
 
             
             {% for comment in image.comment_set.all%}

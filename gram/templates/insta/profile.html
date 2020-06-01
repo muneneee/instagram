@@ -5,8 +5,9 @@
 {% block content %}
 {{block.super}}
     <div class="container">
+        <hr>
         <h1>{{user.username}}</h1>
-        <p>{% include 'insta/follow.html' with username=user.username %}</p>
+        <p>{% include 'insta/follow.html' with username=user.username is_following=True %}</p>
         <p>{{user.profile.bio}}</p>
         <div class="row">
             <div class="header"><img class="rounded-circle article-img" src="{{user.profile.profile_photo.cdn_url}}">

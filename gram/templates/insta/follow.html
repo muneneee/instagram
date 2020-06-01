@@ -7,7 +7,7 @@
         <form method="POST" action="{% url 'follow' %}">
             {% csrf_token %}
             <input type="hidden" name="username" value="{% if username %} {{username}} {% else %} munene {% endif %}">
-            <button class="btn btn-info">Follow</button>
+            <button class="btn {% if is_following %}btn-default{% else %}btn-info{% endif %}">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>
             
         </form>
     </div>
