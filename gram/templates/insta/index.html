@@ -8,13 +8,13 @@
         <hr>
 
         
-        <div class="container img-container" id="cont">
+        <div class="container img-container" id="cont" style="background-color: #F7F1F7 ;">
             <div id="upload-div"></div>
                 <div class="img-div">
                     {% if post.image %}
                     <div class="header"><img class="rounded-circle article-img" src="{{post.account.profile.profile_photo.cdn_url}}">
                     {% endif %}
-                        <label>{{post.account}}</label>
+                        <label style="font-family: 'Concert One', cursive;">{{post.account}}</label>
                     </div>
                     <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" alt="" style="cursor: pointer;"></a>
                     <form action="{% url 'like-post' %}" method="POST">
@@ -27,8 +27,8 @@
                         {% endif %}
                     </form>
                     <div class="more-section">
-                        <label>{{post.liked.all.count}} likes</label>
-                        <p><strong>{{ post.account }} </strong> {{ post.caption}}</p>
+                        <label style="font-family: 'Open Sans Condensed', sans-serif;">{{post.liked.all.count}} likes</label>
+                        <p><strong style="font-family: 'Concert One', cursive;">{{ post.account }} ~ </strong> <span style="font-family: 'Open Sans Condensed', sans-serif;">{{ post.caption}}</span></p>
                     </div>
                 </div>
             </div>

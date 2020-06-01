@@ -34,6 +34,14 @@ class Image(models.Model):
     def save_image(self):
         self.save()
 
+    def delete_image(self):
+        self.delete()
+
+    @classmethod
+    def update_image(cls, id ,name, caption):
+        update = cls.objects.filter(id = id).update(name = name, caption=caption)
+    
+
 
     @property
     def num_likes(self):
