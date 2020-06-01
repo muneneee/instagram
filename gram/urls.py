@@ -5,7 +5,7 @@ from .import views
 
 urlpatterns=[
     path('', PostView.as_view(),name = 'index'),
-    path('profile/',views.profile, name='profile'),
+    # path('profile/',views.profile, name='profile'),
     # path('like/',views.like_post, name='like-post'),
     # path('follow/',ProfileFollowToggle.as_view(), name='follow'),
     # path('post/<int:pk>/', DetailView.as_view(), name='detail'),
