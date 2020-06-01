@@ -23,10 +23,3 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 
-User = get_user_model()
-
-random_= User.objects.last()
-
-random_.profile.followers.all()
-
-random_.is_following.all()
