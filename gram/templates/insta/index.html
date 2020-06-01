@@ -12,9 +12,9 @@
             <div id="upload-div"></div>
                 <div class="img-div">
                     {% if post.image %}
-                    <div class="header"><img class="rounded-circle article-img" src="{{user.profile.profile_photo.cdn_url}}">
+                    <div class="header"><img class="rounded-circle article-img" src="{{post.account.profile.profile_photo.cdn_url}}">
                     {% endif %}
-                        <label>{{user.username}}</label>
+                        <label>{{post.account}}</label>
                     </div>
                     <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" alt="" style="cursor: pointer;"></a>
                     <form action="{% url 'like-post' %}" method="POST">

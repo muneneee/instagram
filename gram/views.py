@@ -10,6 +10,7 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 from .forms import RegisterForm,ProfileForm,UpdateForm,CommentForm
 from django.contrib.sessions.models import Session
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required
@@ -49,6 +50,8 @@ def register(request):
 
 @login_required
 def profile(request):
+    current_user = request.user
+    current_user_id=request.user.id
     if request.method == 'POST':
         user_form = UpdateForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES,instance=request.user.profile)
@@ -60,11 +63,21 @@ def profile(request):
             messages.success(request, f'Account {username} has been updated')
             return redirect('profile')
 
+
+
     else:
         user_form = UpdateForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
 
-    context = {'user_form':user_form, 'profile_form':profile_form}
+
+    try:
+        profile = Profile.objects.get(user=current_user)
+        posts = Image.objects.filter(account_id= current_user_id)
+
+    except ObjectDoesNotExist:
+        return redirect(profile)
+
+    context = {'user_form':user_form, 'profile_form':profile_form, 'posts':posts}
 
 
     return render(request, 'insta/profile.html', context)
@@ -124,11 +137,12 @@ class CommentCreate(LoginRequiredMixin,CreateView):
     success_url = '/'
     fields = ['content']
 
-    def form_valid(self, form):
+    def form_valid(self, form,request):
         form.instance.user = self.request.user
-        form.instance.post =self.request.POST.get('post_id')
+        image_id = request.POST.get('image_id')
+        form.instance.post_id =Image.objects.get(pk=image_id)
         #form.instance.post = get_object_or_404(Image, pk=image_id)
-        return super().form_valid(form)
+        return super().form_valid(form,request)
 
 
 class CreateView(LoginRequiredMixin,CreateView):

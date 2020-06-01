@@ -13,6 +13,10 @@
             <div class="header"><img class="rounded-circle article-img" src="{{user.profile.profile_photo.cdn_url}}">
 
         </div>
+        {% for post in posts %}
+            <img class="" src="{{post.image.cdn_url}}">
+
+        {% endfor %}
     </div>  
 
     <div class="container" >
