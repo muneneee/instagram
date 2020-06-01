@@ -10,6 +10,11 @@
             <hr>
             <hr>
             <img class="img-fluid" src="{{object.image.cdn_url}}" alt="">
+            
+            <div class="more-section">
+                <label>{{object.liked.all.count}} likes</label>
+                <p><strong>{{ object.account }} </strong> {{ object.caption}}</p>
+            </div>
             {% if object.account == user %}
                 <div>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update' object.id %}">Update</a>

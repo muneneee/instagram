@@ -14,7 +14,7 @@
         
         <blockquote class="blockquote">
             <p class="mb-0">{{user.username}}</p><img class="rounded-circle article-img" src="{{user.profile.profile_photo.cdn_url}}">
-            {% if profile.user == user %}
+            {% if user.profile.user == user %}
                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Update Profile</button>
             {% endif %}
             <footer class="blockquote-footer"><cite title="Source Title"> {{user.profile.bio}}</cite></footer>
@@ -23,9 +23,11 @@
         <hr>
         <h3 class="text-center">My posts</h3>
         {% for post in posts %}
-            <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4">
 
-                <img class="img-fluid" src="{{post.image.cdn_url}}">
+                    <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" style="cursor: pointer;"></a>
+                </div>
             </div>
         {% endfor %}
     </div>  
