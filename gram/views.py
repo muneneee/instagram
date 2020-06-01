@@ -141,27 +141,10 @@ class DetailView(DetailView):
     model = Image
     template_name = 'insta/detail.html'
 
-    #def get_context_data(self, *args, **kwargs):
-     #   context = super(DetailView,self).get_context_data(*args, **kwargs)
-      ##  user = context['user']
-        #if user.profile in self.request.user.is_following.all():
-         #   is_following = True
-        #context['is_following'] = is_following
+    
     
     
 
-#class CommentCreate(LoginRequiredMixin,CreateView):
- #   model= Comment
-  #  template_name = 'insta/comment_form.html'
-   # success_url = '/'
- #   fields = ['content']
-#
-  #  def form_valid(self, form,request):
-   #     form.instance.user = self.request.user
-    #    image_id = request.POST.get('image_id')
-     #   form.instance.post_id =Image.objects.get(pk=image_id)
-        #form.instance.post = get_object_or_404(Image, pk=image_id)
-      #  return super().form_valid(form,request)
 
 
 class CreateView(LoginRequiredMixin,CreateView):
