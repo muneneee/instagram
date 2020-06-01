@@ -107,6 +107,25 @@ def like_post(request):
 
     return redirect('index')
 
+@login_required
+def add_comment(request, id, *args, **kwargs):
+    post = get_object_or_404(Image, id=id)
+    user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user =user
+            comment.save()
+            return redirect('detail', pk=post.id)
+    else:
+        form = CommentForm()
+
+    return render(request,'insta/comment_form.html', {'form':form})
+
+
+
 
 
 class PostView(LoginRequiredMixin,ListView):
@@ -131,18 +150,18 @@ class DetailView(DetailView):
     
     
 
-class CommentCreate(LoginRequiredMixin,CreateView):
-    model= Comment
-    template_name = 'insta/comment_form.html'
-    success_url = '/'
-    fields = ['content']
-
-    def form_valid(self, form,request):
-        form.instance.user = self.request.user
-        image_id = request.POST.get('image_id')
-        form.instance.post_id =Image.objects.get(pk=image_id)
+#class CommentCreate(LoginRequiredMixin,CreateView):
+ #   model= Comment
+  #  template_name = 'insta/comment_form.html'
+   # success_url = '/'
+ #   fields = ['content']
+#
+  #  def form_valid(self, form,request):
+   #     form.instance.user = self.request.user
+    #    image_id = request.POST.get('image_id')
+     #   form.instance.post_id =Image.objects.get(pk=image_id)
         #form.instance.post = get_object_or_404(Image, pk=image_id)
-        return super().form_valid(form,request)
+      #  return super().form_valid(form,request)
 
 
 class CreateView(LoginRequiredMixin,CreateView):
