@@ -16,8 +16,14 @@ def index(request):
 
     posts = Image.objects.all()
 
-    return render(request, 'insta/index.html', {'posts':posts})
+    return render(request, 'insta/index.html', {'posts':posts},{'users':users})
 
+
+def navbar(request):
+
+    users = User.objects.all()
+
+    return render(request, 'sidenav.html',{'users':users})
 
 
 def register(request):

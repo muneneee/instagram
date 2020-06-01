@@ -4,24 +4,38 @@
 {{block.super}}
     
     {% for post in posts %}
-        {% if post.image %}
-        <div class="col-md-4">
-            <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" alt="" style="cursor: pointer;"></a>
+        <br><br>
+        <hr>
+
+        
+        <div class="container img-container">
+            <div id="upload-div"></div>
+                <div class="img-div">
+                    {% if post.image %}
+                    <div class="header"><img class="rounded-circle article-img" src="{{user.profile.profile_photo.cdn_url}}">
+                    {% endif %}
+                        <label>{{user.username}}</label>
+                    </div>
+                    <a href="{% url 'detail' post.id %}"><img class="img-fluid" src="{{post.image.cdn_url}}" alt="" style="cursor: pointer;"></a>
+                    <form action="{% url 'like-post' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value="{{post.id}}">
+                        {% if user not in post.liked.all%}
+                            <button class="ul btn btn-success" type="submit">Like</button>
+                        {% else %}
+                            <button class="ul btn btn-danger" type="submit">Unlike</button>
+                        {% endif %}
+                    </form>
+                    <div class="more-section">
+                        <label>{{post.liked.all.count}} likes</label>
+                        <p><strong>{{ user.username }} </strong> {{ post.caption}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endif %}
-        <form action="{% url 'like-post' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="post_id" value="{{post.id}}">
-            {% if user not in post.liked.all%}
-                <button class="ul btn btn-success" type="submit">Like</button>
-            {% else %}
-                <button class="ul btn btn-danger" type="submit">Unlike</button>
-            {% endif %}
-        </form>
-        <strong>{{post.liked.all.count}} likes</strong>
+        
+
+
     {% endfor %}
-
-
-
 
 {% endblock %}

@@ -38,8 +38,11 @@ body {
   padding: 0px 10px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
+@media screen and (max-height: 550px) {
+  .sidenav {
+      padding-top: 15px;
+      width: 70%;
+    }
   .sidenav a {font-size: 18px;}
 }
 </style>
@@ -47,8 +50,6 @@ body {
 <body>
 
 <div class="sidenav ">
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
+  <a href="#about">{{user.username}}</a>
+  
 </div>
