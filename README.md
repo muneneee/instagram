@@ -1,87 +1,70 @@
-# Project Title
+# Instagram
 
-One Paragraph of project description goes here
+This is a project that emulates the features of instagram which is a photo sharing app.To use the app you must first create an account and log in.The website will send a welcome email after signing up.After loging in you can see posts from various users.You can also add a photo and crop it as you want,you can also update your profile by adding a profile photo and bio.the user can like and comment on different photos on the website.You can update or delete your own posts and you can see them on your profile page.
 
-## Getting Started
+## Installation
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* clone the project to your local machine 
+* Install the necessary dependencies on your local machine
+* set up your local database and update the settings in the app
+* set up  an upload care account for the uploading to work
+* run python manage.py runserver to get the website on the local server.
+
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+The installations can be done using pip, so you must first install pip.
+They can be done using pip install <dependency name>
 
 ```
-Give examples
+Django 2.2
+Django bootstrap 4
+postgresql
+psycopg2
+django-crispy-forms
+pyuploadcare
 ```
 
-### Installing
+### Deploying
 
-A step by step series of examples that tell you how to get a development env running
+You can deploy the website to your suitable web hosting services
+Before deplying you should set up your app as per the requirements of your host
+```
+eg Heroku```
 
-Say what the step will be
+you can find my deployed app (here)[https://igkev.herokuapp.com/]
 
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+The tests can be ran using python manage.py test gram(app name)
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+The tests are for the models in the app,they test the model methods
 
-```
-Give an example
-```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* Python
+* Django
+* Html
+* Postgresql
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+You can contribute by contacting me through my email or if any ugs are found
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Kevin Munene** - *email* - lukekevin39@gmail.com
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://raw.githubusercontent.com/muneneee/instagram/master/LICENSE) file for details
 
-## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
